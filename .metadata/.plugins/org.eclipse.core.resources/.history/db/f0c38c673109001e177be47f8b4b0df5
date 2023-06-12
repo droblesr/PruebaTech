@@ -1,0 +1,14 @@
+
+spring.application.name=Cursos
+server.port=8008
+
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+
+eureka.client.register-with-eureka=false
+eureka.client.fetch-registry=false
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/escuela
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+
+spring.mvc.pathmatch.matching-strategy = ANT_PATH_MATCHER

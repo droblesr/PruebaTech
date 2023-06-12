@@ -1,0 +1,5 @@
+package com.mx.zuul.oauth;
+
+public class ResourceServerConfig {
+
+}

@@ -1,0 +1,12 @@
+package com.mx.oauth.clients;
+
+import com.mx.oauth.dtos.Usuario;
+
+public class UsuarioFeignClient {
+
+	public Usuario findByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

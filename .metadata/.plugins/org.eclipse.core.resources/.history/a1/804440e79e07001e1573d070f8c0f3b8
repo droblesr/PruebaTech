@@ -1,0 +1,5 @@
+package com.mx.oauth.security;
+
+public class SpringSecurityConfig {
+
+}

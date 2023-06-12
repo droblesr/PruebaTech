@@ -1,0 +1,31 @@
+/**
+ * 
+ */
+package com.mx.Cursos.controller;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import com.mx.Cursos.dto.CalificacionDTO;
+import com.mx.Cursos.dto.ResponseDTO;
+
+/**
+ * @author w10
+ *
+ */
+@RequestMapping("/admin")
+public interface Controller {
+
+	@PostMapping("/registrar")
+	ResponseEntity<ResponseDTO> registro(@RequestBody CalificacionDTO calificacion);
+	
+	@GetMapping("/listar")
+	ResponseEntity<ResponseDTO<List<CalificacionDTO>>> listar(@RequestParam Long idAlumno);
+	
+	@PutMapping("/update")
+	ResponseEntity<ResponseDTO> update(@RequestBody CalificacionDTO calificacion);
+
+	@DeleteMapping("/Delete")
+	ResponseEntity<ResponseDTO> delete(@RequestParam Long idCalificacion);
+}

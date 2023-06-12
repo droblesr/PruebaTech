@@ -1,0 +1,5 @@
+package com.mx.oauth;
+
+public class UsuarioFeignClient {
+
+}

@@ -1,0 +1,4 @@
+#Tomcat publish data
+#Mon Jun 12 09:01:55 CST 2023
+org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\w10\\.m2\\repository\\org\\primefaces\\primefaces\\10.0.0\\primefaces-10.0.0-jakarta.jar=WEB-INF/lib/primefaces-10.0.0-jakarta.jar
+org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\w10\\.m2\\repository\\org\\apache\\myfaces\\core\\myfaces-impl\\3.0.1\\myfaces-impl-3.0.1.jar=WEB-INF/lib/myfaces-impl-3.0.1.jar

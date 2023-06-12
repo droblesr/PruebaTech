@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="primefaces-integration-tests-jakarta">
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <property name="context-root" value="primefaces-integration-tests"/>
+        <property name="java-output-path" value="/primefaces-integration-tests-jakarta/target/classes"/>
+    </wb-module>
+</project-modules>

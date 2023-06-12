@@ -1,0 +1,129 @@
+package com.mx.Cursos.service.impl;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mx.Cursos.dao.AlumnosDAO;
+import com.mx.Cursos.dao.CalificacionesDAO;
+import com.mx.Cursos.dao.MateriasDAO;
+import com.mx.Cursos.dto.CalificacionDTO;
+import com.mx.Cursos.dto.ResponseDTO;
+import com.mx.Cursos.entity.Alumnos;
+import com.mx.Cursos.entity.Calificaciones;
+import com.mx.Cursos.entity.Materias;
+import com.mx.Cursos.service.ServiceCalificaciones;
+import com.mx.Cursos.utils.ReflectionUtils;
+
+@Service
+public class ServiceCalificacionesImpl implements ServiceCalificaciones {
+
+	@Autowired
+	MateriasDAO materiasDAO;
+	@Autowired
+	CalificacionesDAO calificacionesDAO;
+	@Autowired
+	AlumnosDAO alumnosDAO;
+	
+	Materias materiaEntity = new Materias();
+	Calificaciones calificacionesEntity = new Calificaciones();
+	Alumnos alumnosEntity = new Alumnos();
+	
+	ObjectMapper mapper = new ObjectMapper();
+	ResponseDTO response;
+	
+	@Override
+	@Transactional
+	public ResponseDTO registro(CalificacionDTO calificacion) {
+		Date date = new Date();
+		Optional<Materias> materia= materiasDAO.findById(calificacion.getIdMateria());
+		response = !materia.isPresent() ? new ResponseDTO("Not Found", "No se ha logrado registrar la calificacion, La Materia no ha sido Registrada") : new ResponseDTO("ok", "");  
+		Optional<Alumnos> alumno = alumnosDAO.findById(calificacion.getIdAlumno());
+		response = !alumno.isPresent() ? new ResponseDTO("Not Found", "No se ha logrado registrar la calificacion, Alumno no encontrado") : new ResponseDTO("ok", ""); 
+		if( response.getSuccess().equals("ok") ) {
+			//calificacionesEntity  = mapper.convertValue( ReflectionUtils.copyObjectPerToObjectPer( calificacion ) , Calificaciones.class);
+			
+			try {
+				calificacionesEntity.setAlumno(alumno.get());
+				calificacionesEntity.setMateria(materia.get());
+				calificacionesEntity.setFechaRegistro(date);
+				calificacionesEntity.setCalificacion(calificacion.getCalificacion());
+				calificacionesDAO.save(calificacionesEntity);
+				response.setMsg("calificacion registrada");
+			}catch(Exception ex){
+				response.setMsg("No se ha logrado registrar la calificacion, "+ ex.getMessage());
+			}
+		}
+		return response;
+	}
+
+	@Override
+	public ResponseDTO<List<CalificacionDTO>> listar(Long idAlumno) {
+		Optional<Alumnos> alumno = alumnosDAO.findById(idAlumno); 
+		response = !alumno.isPresent() ? new ResponseDTO<List<CalificacionDTO>>("Not Found", "Alumno no encontrado") : new ResponseDTO<List<CalificacionDTO>>("ok", "");
+		List<CalificacionDTO> list = new ArrayList<CalificacionDTO>();
+		if(response.getSuccess().equals("ok")) {
+			Set<Calificaciones> calificaciones = calificacionesDAO.findByAlumno(alumno.get());
+			response.setMsg("Registros Obtenidos con Exito");
+			calificaciones.forEach( ca ->{
+				try {
+					CalificacionDTO dtoAux = new CalificacionDTO();
+					dtoAux = mapper.convertValue( ReflectionUtils.copyObjectPerToObjectPer( ca ) , CalificacionDTO.class);
+					list.add(dtoAux);
+				} catch (Exception e) {
+					response = new ResponseDTO("Error al mapear", "Error Interno");
+					list.clear();
+					return;
+				}
+			});
+			
+		}
+		response.setResponse(list);
+		return response;
+	}
+
+	@Override
+	@Transactional
+	public ResponseDTO update(CalificacionDTO calificacion) {
+		Optional<Calificaciones> cal = calificacionesDAO.findById(calificacion.getIdCalificacion());
+		response = !cal.isPresent() ? new ResponseDTO("Not Found", "No se ha logrado Actualizar la calificacion, La Calificacion no ha sido Registrada") : new ResponseDTO("ok", "");
+		if( response.getSuccess().equals("ok") ) {
+			calificacionesEntity = cal.get();
+			calificacionesEntity.setFechaRegistro( calificacion.getFechaRegistro() );
+			calificacionesEntity.setCalificacion(calificacion.getCalificacion());
+			try {
+				calificacionesDAO.save(calificacionesEntity);
+				response.setMsg("calificacion actualizada");
+			}catch(Exception ex) {
+				response = new ResponseDTO("Error Interno", "No se ha logrado Actualizar la calificacion");
+			}
+		}
+		return response;
+	}
+
+	@Override
+	@Transactional
+	public ResponseDTO delete(Long idCalificacion) {
+		Optional<Calificaciones> cal = calificacionesDAO.findById(idCalificacion);
+		response = !cal.isPresent() ? new ResponseDTO("Not Found", "Calificacion No encontrada") : new ResponseDTO("ok", "");
+		if( response.getSuccess().equals("ok") ) {
+			calificacionesEntity = cal.get();
+			try {
+				calificacionesDAO.delete(calificacionesEntity);
+				response.setMsg("calificacion Eliminada");
+			}catch(Exception ex) {
+				response = new ResponseDTO("Error Interno", "No se ha logrado Eliminar la calificacion");
+			}
+		}
+		return response;
+	}
+
+}

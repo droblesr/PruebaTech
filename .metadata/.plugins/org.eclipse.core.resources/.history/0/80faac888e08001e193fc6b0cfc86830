@@ -1,0 +1,23 @@
+package com.mx.oauth.clients;
+
+import org.springframework.stereotype.Service;
+
+import com.mx.oauth.dtos.Usuario;
+
+@Service
+public class UsuarioFeignClient {
+
+	public Usuario findByUsername(String username) {
+		Usuario user = new Usuario();
+		user.setApellido("PruebaApellido");
+		user.setNombre("ADMIN");
+		user.setEmail("admin@hotmail.com");
+		user.setPassword("contra");
+		if( user.getNombre().equals(username) ) {
+			return user;
+		}
+		
+		return null;
+	}
+
+}

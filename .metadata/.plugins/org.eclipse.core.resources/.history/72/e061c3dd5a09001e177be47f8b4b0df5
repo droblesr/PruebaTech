@@ -1,0 +1,32 @@
+package com.mx.Cursos;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class AppConfig {
+
+//	@Bean("clienteRest")
+//	@LoadBalanced
+//	RestTemplate registrarRestTemplate() {
+//		return new RestTemplate();
+//	}
+	
+//	@Bean
+//	Customizer<Resilience4JCircuitBreakerFactory> defaultCutomizer(){
+//		return factory -> factory.configureDefault( 
+//					id -> {
+//						return new Resilience4JConfigBuilder(id)
+//								.circuitBreakerConfig(CircuitBreakerConfig.custom()
+//								.slidingWindowSize(10)
+//								.failureRateThreshold(50)
+//								.waitDurationInOpenState(Duration.ofSeconds(10L))
+//								.permittedNumberOfCallsInHalfOpenState(5)
+//								.slowCallRateThreshold(50)
+//								.slowCallDurationThreshold(Duration.ofSeconds(2L))
+//								.build())
+//								.timeLimiterConfig(TimeLimiterConfig.custom().timeoutDuration(Duration.ofSeconds(6L)).build()).build();
+//						
+//					}
+//				);
+//	}
+}
+

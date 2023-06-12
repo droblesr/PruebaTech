@@ -1,0 +1,35 @@
+//package com.formacionbdi.springboot.app.usuarios.entity;
+//
+//import java.io.Serializable;
+//
+//import javax.persistence.Column;
+//import javax.persistence.Entity;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.GenerationType;
+//import javax.persistence.Id;
+//import javax.persistence.Table;
+//
+//import lombok.Getter;
+//import lombok.Setter;
+//
+//@Entity
+//@Table(name = "roles")
+//@Getter
+//@Setter
+//public class Role implements Serializable{
+//
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Long id;
+//	//En usuario ya esta declarada la relacion, cuando querramos que la relacion sea direccional
+//	//es necesario anotar en ambas clases de relacion mediante el atributo sin importar si es manytomany
+//	//haciendo diferencia que en la clase relacionada mapearla con el atributo en la clase relacional 
+//	//@ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
+//	//private List<Usuario> roles;
+//	
+//	@Column(unique = true, length = 30)
+//	private String nombre;
+//	
+//	private static final long serialVersionUID = 2132936842392539601L;
+//
+//}

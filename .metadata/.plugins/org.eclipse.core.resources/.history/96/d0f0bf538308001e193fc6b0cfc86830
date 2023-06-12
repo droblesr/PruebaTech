@@ -1,0 +1,10 @@
+
+spring.application.name=oauth-server
+server.port=9100
+eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
+
+config.security.oauth.cliente.id=frontendapp
+config.security.oauth.cliente.secret=12345
+config.security.oauth.jwt.ket=algun_codigo_secreto_aeiou
+
+#spring.config.import=optional:configserver:

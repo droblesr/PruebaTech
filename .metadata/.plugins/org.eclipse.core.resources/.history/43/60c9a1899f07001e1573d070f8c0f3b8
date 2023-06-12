@@ -1,0 +1,5 @@
+package com.mx.oauth.dtos;
+
+public class Usuario {
+
+}
